@@ -2,9 +2,13 @@
 
 set -e
 
+failure(){
+    echo "failed at $1: $2"
+}
+
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
-USERID=$(id -u)
+USERID=$(id -u) #ERR
 
 if [ $USERID -ne 0 ]
 then
@@ -15,7 +19,7 @@ else
 fi
 
 dnf install mysqlll -y
-
+   
 dnf install git -y
 
 echo "is script proceeding?"
